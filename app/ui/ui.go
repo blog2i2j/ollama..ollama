@@ -109,16 +109,8 @@ type Server struct {
 	Dev bool
 
 	// Updater for checking and downloading updates
-	Updater             UpdaterInterface
+	Updater             *updater.Updater
 	UpdateAvailableFunc func()
-}
-
-// UpdaterInterface defines the methods we need from the updater
-type UpdaterInterface interface {
-	CheckForUpdate(ctx context.Context) (bool, string, error)
-	InstallAndRestart() error
-	CancelOngoingDownload()
-	TriggerImmediateCheck()
 }
 
 func (s *Server) log() *slog.Logger {

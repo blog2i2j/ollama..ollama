@@ -279,7 +279,11 @@ func (u *Updater) CancelOngoingDownload() {
 // TriggerImmediateCheck signals the background checker to check for updates immediately
 func (u *Updater) TriggerImmediateCheck() {
 	if u.checkNow != nil {
-		u.checkNow <- struct{}{}
+		select {
+		case u.checkNow <- struct{}{}:
+		default:
+			// Check already pending, no need to queue another
+		}
 	}
 }
 
