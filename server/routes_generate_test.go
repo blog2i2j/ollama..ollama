@@ -251,6 +251,7 @@ func TestGenerateChat(t *testing.T) {
 	}
 
 	s := Server{
+		usage: NewUsageTracker(),
 		sched: &Scheduler{
 			pendingReqCh:    make(chan *LlmRequest, 1),
 			finishedReqCh:   make(chan *LlmRequest, 1),
@@ -967,6 +968,7 @@ func TestGenerate(t *testing.T) {
 	}
 
 	s := Server{
+		usage: NewUsageTracker(),
 		sched: &Scheduler{
 			pendingReqCh:    make(chan *LlmRequest, 1),
 			finishedReqCh:   make(chan *LlmRequest, 1),
@@ -1451,6 +1453,7 @@ func TestGenerateLogprobs(t *testing.T) {
 		}
 
 		s := &Server{
+			usage: NewUsageTracker(),
 			sched: &Scheduler{
 				pendingReqCh:    make(chan *LlmRequest, 1),
 				finishedReqCh:   make(chan *LlmRequest, 1),
@@ -1631,6 +1634,7 @@ func TestChatLogprobs(t *testing.T) {
 		}
 
 		s := &Server{
+			usage: NewUsageTracker(),
 			sched: &Scheduler{
 				pendingReqCh:    make(chan *LlmRequest, 1),
 				finishedReqCh:   make(chan *LlmRequest, 1),
@@ -1741,6 +1745,7 @@ func TestChatWithPromptEndingInThinkTag(t *testing.T) {
 		}
 
 		s := &Server{
+			usage: NewUsageTracker(),
 			sched: &Scheduler{
 				pendingReqCh:    make(chan *LlmRequest, 1),
 				finishedReqCh:   make(chan *LlmRequest, 1),
@@ -2187,6 +2192,7 @@ func TestGenerateUnload(t *testing.T) {
 	var loadFnCalled bool
 
 	s := Server{
+		usage: NewUsageTracker(),
 		sched: &Scheduler{
 			pendingReqCh:    make(chan *LlmRequest, 1),
 			finishedReqCh:   make(chan *LlmRequest, 1),
@@ -2288,6 +2294,7 @@ func TestGenerateWithImages(t *testing.T) {
 	}
 
 	s := Server{
+		usage: NewUsageTracker(),
 		sched: &Scheduler{
 			pendingReqCh:    make(chan *LlmRequest, 1),
 			finishedReqCh:   make(chan *LlmRequest, 1),
@@ -2445,6 +2452,7 @@ func TestImageGenerateStreamFalse(t *testing.T) {
 
 	opts := api.DefaultOptions()
 	s := Server{
+		usage: NewUsageTracker(),
 		sched: &Scheduler{
 			pendingReqCh:  make(chan *LlmRequest, 1),
 			finishedReqCh: make(chan *LlmRequest, 1),
