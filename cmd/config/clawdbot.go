@@ -19,7 +19,7 @@ func (c *Clawdbot) String() string { return "Clawdbot" }
 
 const ansiGreen = "\033[32m"
 
-func (c *Clawdbot) Run(model string) error {
+func (c *Clawdbot) Run(model string, extraArgs []string) error {
 	if _, err := exec.LookPath("clawdbot"); err != nil {
 		return fmt.Errorf("clawdbot is not installed, install from https://docs.clawd.bot")
 	}
@@ -32,7 +32,13 @@ func (c *Clawdbot) Run(model string) error {
 		return fmt.Errorf("setup failed: %w", err)
 	}
 
-	cmd := exec.Command("clawdbot", "gateway")
+	// Build args: "gateway" first, then any extra args
+	args := []string{"gateway"}
+	if len(extraArgs) > 0 {
+		args = append(args, extraArgs...)
+	}
+
+	cmd := exec.Command("clawdbot", args...)
 	cmd.Stdin = os.Stdin
 
 	// Capture output to detect "already running" message
